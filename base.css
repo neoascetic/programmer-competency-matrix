@@ -1,0 +1,69 @@
+@import url(http://necolas.github.io/normalize.css/2.1.2/normalize.css);
+
+body {
+  margin: .5em;
+  font-size: 90%;
+}
+
+table {
+  margin-bottom: 1.5em;
+  font-size: .9em;
+}
+
+caption {
+  font-weight: bold;
+  margin: 0.5em 0;
+  font-size: 1.5em;
+}
+
+thead {
+  text-align: center;
+}
+
+tbody tr {
+  transition: background .2s;
+}
+
+tbody tr:hover {
+  background: rgba(255, 0, 0, .5);
+}
+
+th, td {
+  width: 18%;
+  padding: .5em;
+}
+
+th:first-child, td:first-child {
+  width: 10%;
+}
+
+th:not(:first-child):not(:last-child) {
+  background: #BBB;
+}
+
+th:last-child {
+  background: #EEE;
+}
+
+th:not(:first-child):not(:last-child), td:not(:first-child):not(:last-child) {
+  border: 1px solid black;
+}
+
+td:not(:first-child):not(:last-child) {
+  cursor: pointer;
+  vertical-align: top;
+  background: rgba(255, 0, 0, .5);
+}
+
+td:first-child, td:last-child {
+  background: white;
+}
+
+td:first-child {
+  font-weight: bold;
+}
+
+td:last-child {
+  font-size: .8em;
+  color: #79B;
+}
