@@ -20,7 +20,7 @@ thead {
   text-align: center;
 }
 
-tbody tr {
+tbody tr, tbody td {
   transition: background .2s;
 }
 
@@ -54,6 +54,11 @@ td:not(:first-child):not(:last-child) {
   vertical-align: top;
   background: rgba(255, 0, 0, .5);
 }
+
+td.checked:not(:first-child):not(:last-child) {
+  background: rgba(0, 255, 0, .5);
+}
+
 
 td:first-child, td:last-child {
   background: white;
