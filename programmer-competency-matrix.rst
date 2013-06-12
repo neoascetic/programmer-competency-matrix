@@ -267,4 +267,9 @@ Note that the knowledge for each level is cumulative; being at level *n* implies
    +------------------------------+------------------------------+------------------------------+------------------------------+------------------------------+------------------------------+
 
 
-Thanks to `Sijin Joseph <http://sijinjoseph.com/programmer-competency-matrix/>`_ for the original version of this chart.
+
+.. footer:: Thanks to `Sijin Joseph <http://sijinjoseph.com/programmer-competency-matrix/>`_ for the original version of this chart.
+
+    .. raw:: html
+
+        <iframe src="http://ghbtns.com/github-btn.html?user=neoascetic&repo=programmer-competency-matrix&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>

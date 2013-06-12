@@ -72,3 +72,7 @@ td:last-child {
   font-size: .8em;
   color: #79B;
 }
+
+footer {
+  text-align: center;
+}
