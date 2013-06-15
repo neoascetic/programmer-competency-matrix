@@ -1,0 +1,8 @@
+language: python
+install: "pip install -r requirements.txt"
+# index page must be created by the script
+script: "sh convert | diff index.html -"
+
+branches:
+  only:
+    - gh-pages
