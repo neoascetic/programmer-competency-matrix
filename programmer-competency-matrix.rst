@@ -2,7 +2,17 @@
 Programmer Competency Matrix
 ============================
 
-Note that the knowledge for each level is cumulative; being at level *n* implies that you also know everything from the levels lower than *n*.
+.. meta::
+    :description:
+        Simple web application with offline support which will help you to
+        track your progress on famous Programmer Competency Matrix
+        (by Sijin Joseph), being published on Starling Software, Hacker News
+        and other great sites
+    :keywords:
+        programmer competency, matrix, table, tracking, offline, application
+
+Note that the knowledge for each level is cumulative;
+being at level *n* implies that you also know everything from the levels lower than *n*.
 
 .. table:: Computer Science
 
