@@ -1,3 +1,0 @@
-#!/bin/sh
-
-rst2html5 --stylesheet="base.css" --script-defer="base.js" --html-tag-attr='manifest="cache.manifest"' programmer-competency-matrix.rst

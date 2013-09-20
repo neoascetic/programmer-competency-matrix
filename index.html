@@ -2,15 +2,42 @@
 <html manifest="cache.manifest">
 <head>
     <meta charset="utf-8" />
-    <link href="base.css" rel="stylesheet" />
-    <script src="base.js" defer="defer"></script>
-    <title>Programmer Competency Matrix</title>
     <meta content="Simple web application with offline support which will help you to track your progress on famous Programmer Competency Matrix (by Sijin Joseph), being published on Starling Software, Hacker News and other great sites" name="description" />
     <meta content="programmer competency, matrix, table, tracking, offline, application" name="keywords" />
+
+    <title>Programmer Competency Matrix</title>
+
+    <style>
+      @import url("http://necolas.github.io/normalize.css/2.1.2/normalize.css");
+
+      html { font-size: 10px; }
+      body { margin: .5rem; font-size: 1.4rem; }
+
+      table { margin-bottom: 1.5rem; font-size: 1.2rem; }
+      caption { font-weight: bold; margin: .5rem 0; font-size: 1.5rem; }
+      thead { text-align: center; }
+      th, td { width: 18%; padding: .5rem; }
+      tbody tr, tbody td { transition: background .2s; }
+      tbody tr:hover { background: rgba(255, 0, 0, .5); }
+
+      th:first-child, td:first-child { width: 10%; }
+      th:not(:first-child):not(:last-child) { background: #BBB; }
+      th:last-child { background: #EEE; }
+      th:not(:first-child):not(:last-child), td:not(:first-child):not(:last-child) { border: .1rem solid black; }
+
+      td:not(:first-child):not(:last-child) { cursor: pointer; vertical-align: top; background: rgba(255, 0, 0, .5); }
+      td.checked:not(:first-child):not(:last-child) { background: rgba(0, 255, 0, .5); }
+      td:first-child, td:last-child { background: white; }
+      td:first-child { font-weight: bold; }
+      td:last-child { font-size: 1rem; color: #79B; }
+
+      footer { text-align: center; }
+    </style>
 </head>
 <body>
     <h1>Programmer Competency Matrix</h1>
     <p>Note that the knowledge for each level is cumulative; being at level <em>n</em> implies that you also know everything from the levels lower than <em>n</em>.</p>
+
     <table>
         <caption>Computer Science</caption>
         <thead>
@@ -50,6 +77,7 @@
             </tr>
         </tbody>
     </table>
+
     <table>
         <caption>Software Engeneering</caption>
         <thead>
@@ -89,6 +117,7 @@
             </tr>
         </tbody>
     </table>
+
     <table>
         <caption>Programming</caption>
         <thead>
@@ -224,6 +253,7 @@
             </tr>
         </tbody>
     </table>
+
     <table>
         <caption>Experience</caption>
         <thead>
@@ -271,6 +301,7 @@
             </tr>
         </tbody>
     </table>
+
     <table>
         <caption>Knowledge</caption>
         <thead>
@@ -342,9 +373,60 @@
             </tr>
         </tbody>
     </table>
+
     <footer>
         <p>Thanks to <a href="http://sijinjoseph.com/programmer-competency-matrix/">Sijin Joseph</a> for the original version of this chart.</p>
-        <iframe src="http://ghbtns.com/github-btn.html?user=neoascetic&repo=programmer-competency-matrix&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
+        <iframe src="http://ghbtns.com/github-btn.html?user=neoascetic&repo=programmer-competency-matrix&type=watch&count=true"
+                allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
     </footer>
+
+    <script>
+      var CELLS_PER_ROW = 4;
+      var STORAGE_KEY = 'matrix';
+      var CHECKED_CLASS = 'checked';
+      var CELLS = document.body.querySelectorAll('td:not(:first-child):not(:last-child)');
+
+      document.body.addEventListener('click', function(e) {
+          var cell = e.target || [];
+          var cellIndex = Array.prototype.indexOf.call(CELLS, cell);
+          if (cellIndex === -1) return;
+
+          cell.classList.toggle(CHECKED_CLASS);
+
+          var isCellChecked = cell.classList.contains(CHECKED_CLASS);
+
+          var siblingGetterAction = isCellChecked ?
+              ['previousElementSibling', 'add'] :
+              ['nextElementSibling', 'remove'];
+          var sibling = cell[siblingGetterAction[0]];
+          while (sibling) {
+              sibling.classList[siblingGetterAction[1]](CHECKED_CLASS);
+              sibling = sibling[siblingGetterAction[0]];
+          }
+
+          var matrix = JSON.parse(localStorage.getItem(STORAGE_KEY));
+          var rowIndex = Math.floor(cellIndex / CELLS_PER_ROW);
+          var relativeCellIndex = cellIndex % CELLS_PER_ROW;
+          if (isCellChecked) {
+              matrix[rowIndex] = relativeCellIndex;
+          } else if (relativeCellIndex !== 0) {
+              matrix[rowIndex] = relativeCellIndex - 1;
+          } else {
+              delete matrix[rowIndex];
+          }
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(matrix));
+      });
+
+      var matrix = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+      if (matrix.length === 0) {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(matrix));
+      }
+
+      Array.prototype.map.call(matrix, function(maxCheckedCellRelativeIndex, rowIndex) {
+          if (maxCheckedCellRelativeIndex !== null) {
+              CELLS[rowIndex * CELLS_PER_ROW + maxCheckedCellRelativeIndex].click();
+          }
+      });
+    </script>
 </body>
 </html>
